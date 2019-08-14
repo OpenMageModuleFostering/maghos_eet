@@ -1,0 +1,82 @@
+<?php
+ /**
+  * Magento
+  *
+  * NOTICE OF LICENSE
+  *
+  * This source file is subject to the Open Software License (OSL 3.0)
+  * that is bundled with this package in the file LICENSE.txt.
+  * It is also available through the world-wide-web at this URL:
+  * http://opensource.org/licenses/osl-3.0.php
+  * If you did not receive a copy of the license and are unable to
+  * obtain it through the world-wide-web, please send an email
+  * to license@magentocommerce.com so we can send you a copy immediately.
+  *
+  * @category    Maghos
+  * @package     Maghos_Eet
+  * @copyright   Copyright (c) 2017 Maghos.com  (http://maghos.com)
+  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+  */
+
+$helper = Mage::helper('eet');
+?>
+<?php if ($record = $this->getRecord()): ?>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-billing-address">EET</h4>
+        </div>
+        <fieldset>
+            <table class="form-list" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="label"><label><?php echo $helper->__('Status'); ?></label></td>
+                        <td class="value">
+                            <strong>
+                                <?php
+                                    switch($record->getStatus()){
+                                        case Maghos_Eet_Model_Record::STATUS_NEW:
+                                            echo $helper->__('Not send');
+                                            break;
+                                        case Maghos_Eet_Model_Record::STATUS_ERROR:
+                                            echo $helper->__('Error');
+                                            break;
+                                        case Maghos_Eet_Model_Record::STATUS_SEND:
+                                            echo $helper->__('Send');
+                                            break;
+                                    }
+                                ?>
+                            </strong>
+                        </td>
+                        <td style="width: 5%;">&nbsp;</td>
+                        <td class="label"><label><?php echo $helper->__('VAT ID'); ?></label></td>
+                        <td class="value"><?php echo $record->getVatId(); ?></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label><?php echo $helper->__('Receipt ID'); ?></label></td>
+                        <td class="value"><?php echo $record->getId(); ?></td>
+                        <td>&nbsp;</td>
+                        <td class="label"><label><?php echo $helper->__('Shop ID'); ?></label></td>
+                        <td class="value"><?php echo $record->getShopId(); ?></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label><?php echo $helper->__('FIK'); ?></label></td>
+                        <td class="value"><?php echo $record->getKey(); ?></td>
+                        <td>&nbsp;</td>
+                        <td class="label"><label><?php echo $helper->__('Checkout ID'); ?></label></td>
+                        <td class="value"><?php echo $record->getCheckoutId(); ?></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label><?php echo $helper->__('BKP'); ?></label></td>
+                        <td class="value"><?php echo $record->getCode(); ?></td>
+                        <td>&nbsp;</td>
+                        <td class="label"><label><?php echo $helper->__('Mode'); ?></label></td>
+                        <td class="value">
+                            <?php echo ($record->getMode() == Maghos_Eet_Helper_Data::EET_MODE_SIMPLE) ? $helper->__('Simple') : $helper->__('Normal'); ?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+<div class="clear">&nbsp;</div>
+<?php endif; ?>

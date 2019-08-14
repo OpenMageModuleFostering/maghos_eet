@@ -1,0 +1,45 @@
+Maghos,Maghos    
+EET,EET
+Maghos_Eet::General,Základní
+Maghos_Eet::Mode,Režim
+EET Type,Režim evidence
+Maghos_Eet::Normal,Běžný
+Maghos_Eet::Simple,Zjednodušený
+Maghos_Eet::VAT,DPH
+Not Payer of VAT,Není plátce DPH
+Payer of VAT,Plátce DPH
+Maghos_Eet::Active,Aktivní
+VAT ID,DIČ
+Checkout ID,Číslo pokladny
+Shop ID,Číslo provozovny
+Applicable only to selected payment methods,Použít pouze pro zvolené platební metody
+Applicable only to selected shipping methods,Použít pouze pro zvolené dodací metody
+Maghos_Eet::Payment methods,Platební metody
+Maghos_Eet::Shippinf methods,Dodací metody
+Cannot create EET record,Nelze vytvořit EET záznam
+Certificate KEY file,Soubor certifikátu (KEY)
+Certificate PEM file,Soubor certifikátu (PEM)
+Uploaded certificate file is not valid,Nahrávaný soubor není platný certifikát
+Send to EET,Odeslat do EET
+EET record created for orders #%s,EET záznam vytvořen pro objednávky #%s
+EET record created for order #%s,EET záznam vytvořen pro objednávku #%s
+Cannot create EET record for order #%s,Nelze vytvořit EET záznam pro objednávku #%s
+Cannot create EET record for orders #%s,Nelze vytvořit EET záznam pro objednávky #%s
+Cannot create EET record for invoice #%s,Nelze vytvořit EET záznam pro fakturu #%s
+EET general settings are not configured,Základní nastavení pro EET není vyplněno
+Base Tax class,Základní sazba DPH
+First Lower Tax class,První snížená sazba DPH
+Second Lower Tax class,Druhá snížená sazba DPH
+Maghos_Eet::Not set,Nenastavena
+Tax class form product %s is not defined,Daňová třída pro produkt %s není nastavena
+Order settings,Nastavení objednávek
+Receipt ID,Číslo účtenky
+Maghos_Eet::Not send,Neodesláno
+Maghos_Eet::Send,Odesláno
+Maghos_Eet::Error,Chyba
+Maghos_Eet::Status,Stav
+Maghos_Eet::Test mode,Testovací prostředí
+Identification number of the shop in which revenue is realized.,"Označení provozovny, ve které je tržba uskutečněna."
+"Identification number of checkout equipment, on which revenue is registered.","Označení pokladního zařízení, na kterém je tržba evidována."
+Shop owner`s VAT ID.,DIČ provozovatele obchodu
+"Certificate file generated from the <a target=""_blank"" href=""http://adisspr.mfcr.cz/adistc/adis/idpr_pub/eet/eet_sluzby.faces"">EET web</a>.","Certifikát získaný z <a target=""_blank"" href=""http://adisspr.mfcr.cz/adistc/adis/idpr_pub/eet/eet_sluzby.faces"">webu EET</a>."

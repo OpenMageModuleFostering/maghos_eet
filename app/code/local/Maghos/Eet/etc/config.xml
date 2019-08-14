@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Magento
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@magentocommerce.com so we can send you a copy immediately.
+*
+* @category    Maghos
+* @package     Maghos_Eet
+* @copyright   Copyright (c) 2017 Maghos.com  (http://maghos.com)
+* @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*/
+-->
+<config>
+    <modules>
+        <Maghos_Eet>
+            <version>0.5.0</version>
+        </Maghos_Eet>
+    </modules>
+    <global>
+        <models>
+            <sales>
+                <rewrite>
+                    <order_pdf_invoice>Maghos_Eet_Model_Pdf_Invoice</order_pdf_invoice>
+                </rewrite>
+            </sales>
+            <eet>
+                <class>Maghos_Eet_Model</class>
+                <resourceModel>eet_resource</resourceModel> 
+            </eet>
+            <eet_resource>
+                <class>Maghos_Eet_Model_Resource</class>
+                <entities>
+                    <record>
+                        <table>maghos_eet_record</table>
+                    </record>
+                </entities>
+            </eet_resource>
+        </models>
+        <helpers>
+            <eet>
+                <class>Maghos_Eet_Helper</class>
+            </eet>
+        </helpers>
+        <resources>
+            <eet_setup>
+                <setup>
+                    <module>Maghos_Eet</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </eet_setup> 
+        </resources>
+        <events>
+            <sales_order_payment_cancel>
+                <observers>
+                    <eet_save_invoice_before>
+                        <type>singleton</type>
+                        <class>Maghos_Eet_Model_Observer</class>
+                        <method>cancelOrder</method>
+                    </eet_save_invoice_before>
+                </observers>
+            </sales_order_payment_cancel>
+        </events>
+        
+    </global>
+    <frontend>
+        <translate>
+            <modules>
+                <eet>
+                    <files>
+                        <default>Maghos_Eet.csv</default>
+                    </files>
+                </eet>
+            </modules>
+        </translate>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <eet>
+                    <files>
+                        <default>Maghos_Eet.csv</default>
+                    </files>
+                </eet>
+            </modules>
+        </translate>
+        <events>
+            <core_block_abstract_prepare_layout_before>
+                <observers>
+                    <eet_core_block_abstract_prepare_layout_before>
+                        <class>eet/observer</class>
+                        <method>addMassAction</method>
+                    </eet_core_block_abstract_prepare_layout_before>
+                </observers>
+            </core_block_abstract_prepare_layout_before>
+            <adminhtml_widget_container_html_before>
+                <observers>
+                    <eet_adminhtml_widget_container_html_before>
+                        <class>eet/observer</class>
+                        <method>addButton</method>
+                    </eet_adminhtml_widget_container_html_before>
+                </observers>
+            </adminhtml_widget_container_html_before>
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <eet_core_block_abstract_to_html_after>
+                        <class>eet/observer</class>
+                        <method>addInfo</method>
+                    </eet_core_block_abstract_to_html_after>
+                </observers>
+            </core_block_abstract_to_html_after>
+        </events>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <eet before="Mage_Adminhtml">Maghos_Eet_Adminhtml</eet>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <default>
+        <eet>
+            <general>
+                <active>0</active>
+            </general>
+            <advanced>
+                <mode>1</mode>
+                <vat>0</vat>
+            </advanced>
+            <order>
+                <payment_check>0</payment_check>
+                <shipping_check>0</shipping_check>
+            </order>
+        </eet>
+    </default>
+    <crontab>
+        <jobs>
+            <eet_send_receipts>
+                <schedule>
+                    <cron_expr>*/30 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>eet/observer::cronSend</model>
+                </run>
+            </eet_send_receipts>
+        </jobs>
+    </crontab>
+</config>
