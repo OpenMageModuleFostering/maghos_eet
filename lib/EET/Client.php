@@ -1,7 +1,10 @@
 <?php
 require_once 'Soap/WSSESoap.php';
+require_once 'Soap/XMLSecurityDSig.php';
+
 
 require_once 'Exceptions/ClientException.php';
+
 
 class EET_Client extends \SoapClient {
 	
@@ -72,7 +75,7 @@ class EET_Client extends \SoapClient {
 		
 		$objWSSE = new WSSESoap($doc);
 		$objWSSE->addTimestamp();
-		
+
 		$objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA256, ['type' => 'private']);
 		$objKey->loadKey($this->key, false);
 		$objWSSE->signSoapDoc($objKey, ["algorithm" => XMLSecurityDSig::SHA256]);

@@ -23,6 +23,8 @@ class Maghos_Eet_Model_Record extends Mage_Core_Model_Abstract
     const STATUS_NEW = 0;
     const STATUS_ERROR = 1;
     const STATUS_SEND = 2;
+
+    const SHIPPING_TAX_EXCLUDE = -1;
     
     /** @var Mage_Sales_Model_Order */
     protected $_order;

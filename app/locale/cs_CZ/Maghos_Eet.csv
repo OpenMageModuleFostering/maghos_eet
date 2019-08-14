@@ -43,3 +43,7 @@ Identification number of the shop in which revenue is realized.,"Označení prov
 "Identification number of checkout equipment, on which revenue is registered.","Označení pokladního zařízení, na kterém je tržba evidována."
 Shop owner`s VAT ID.,DIČ provozovatele obchodu
 "Certificate file generated from the <a target=""_blank"" href=""http://adisspr.mfcr.cz/adistc/adis/idpr_pub/eet/eet_sluzby.faces"">EET web</a>.","Certifikát získaný z <a target=""_blank"" href=""http://adisspr.mfcr.cz/adistc/adis/idpr_pub/eet/eet_sluzby.faces"">webu EET</a>."
+"Send automatically on invoice","Odeslat automaticky s fakturou"
+"Shipping tax","Daň dopravy"
+"Exclude","Vynechat"
+"Send automatically on invoice","Odeslat na EET při vytvoření faktury"

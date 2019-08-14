@@ -1,22 +1,23 @@
 <?php
- /**
-  * Magento
-  *
-  * NOTICE OF LICENSE
-  *
-  * This source file is subject to the Open Software License (OSL 3.0)
-  * that is bundled with this package in the file LICENSE.txt.
-  * It is also available through the world-wide-web at this URL:
-  * http://opensource.org/licenses/osl-3.0.php
-  * If you did not receive a copy of the license and are unable to
-  * obtain it through the world-wide-web, please send an email
-  * to license@magentocommerce.com so we can send you a copy immediately.
-  *
-  * @category    Maghos
-  * @package     Maghos_Eet
-  * @copyright   Copyright (c) 2017 Maghos.com  (http://maghos.com)
-  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-  */
+
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    Maghos
+ * @package     Maghos_Eet
+ * @copyright   Copyright (c) 2017 Maghos.com  (http://maghos.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 class Maghos_Eet_Helper_Data extends Mage_Core_Helper_Data
 {
 
@@ -27,18 +28,20 @@ class Maghos_Eet_Helper_Data extends Mage_Core_Helper_Data
     const XML_GENERAL_CERT_KEY = 'eet/general/cert_key_content';
     const XML_GENERAL_CERT_PEM = 'eet/general/cert_pem_content';
     const XML_GENERAL_TEST = 'eet/general/test';
-    
+
     const XML_ADVANCED_MODE = 'eet/advanced/mode';
     const XML_ADVANCED_VAT_MODE = 'eet/advanced/vat';
     const XML_ADVANCED_TAX_BASE = 'eet/advanced/tax_base';
-    const XML_ADVANCED_TAX_LOWER1 = 'eet/advanced/tax_base';
-    const XML_ADVANCED_TAX_LOWER2 = 'eet/advanced/tax_base';
-    
+    const XML_ADVANCED_TAX_LOWER1 = 'eet/advanced/tax_lower1';
+    const XML_ADVANCED_TAX_LOWER2 = 'eet/advanced/tax_lower2';
+    const XML_ADVANCED_SHIPPING_TAX = 'eet/advanced/shipping_tax';
+
     const XML_ORDER_PAYMENT_METHODS = 'eet/order/payment_methods';
     const XML_ORDER_PAYMENT_CHECK = 'eet/order/payment_check';
     const XML_ORDER_SHIPPING_METHODS = 'eet/order/shipping_methods';
     const XML_ORDER_SHIPPING_CHECK = 'eet/order/shipping_check';
-    
+    const XML_ORDER_ON_INVOICE = 'eet/order/auto_invoice';
+
     const VAT_MODE_PAY = 1;
     const VAT_MODE_NO = 0;
     const EET_MODE_NORMAL = 0;
@@ -52,7 +55,7 @@ class Maghos_Eet_Helper_Data extends Mage_Core_Helper_Data
      */
     public function isActive($storeId = null)
     {
-        return (bool) Mage::getStoreConfig(self::XML_GENERAL_ACTIVE, $storeId);
+        return (bool)Mage::getStoreConfig(self::XML_GENERAL_ACTIVE, $storeId);
     }
 
     /**
@@ -63,8 +66,20 @@ class Maghos_Eet_Helper_Data extends Mage_Core_Helper_Data
      */
     public function isTestMode($storeId = null)
     {
-        return (bool) Mage::getStoreConfig(self::XML_GENERAL_TEST, $storeId);
+        return (bool)Mage::getStoreConfig(self::XML_GENERAL_TEST, $storeId);
     }
+
+    /**
+     * Send automatically on invoice
+     *
+     * @param integer|null $storeId
+     * @return bool
+     */
+    public function autoSend($storeId = null)
+    {
+        return (bool)Mage::getStoreConfig(self::XML_ORDER_ON_INVOICE, $storeId);
+    }
+
 
     /**
      * Get Certificate KEY content
@@ -129,7 +144,7 @@ class Maghos_Eet_Helper_Data extends Mage_Core_Helper_Data
      */
     public function getVatMode($storeId = null)
     {
-        return (integer) Mage::getStoreConfig(self::XML_ADVANCED_VAT_MODE, $storeId);
+        return (integer)Mage::getStoreConfig(self::XML_ADVANCED_VAT_MODE, $storeId);
     }
 
     /**
@@ -140,7 +155,7 @@ class Maghos_Eet_Helper_Data extends Mage_Core_Helper_Data
      */
     public function getMode($storeId = null)
     {
-        return (integer) Mage::getStoreConfig(self::XML_ADVANCED_MODE, $storeId);
+        return (integer)Mage::getStoreConfig(self::XML_ADVANCED_MODE, $storeId);
     }
 
     /**
@@ -157,6 +172,52 @@ class Maghos_Eet_Helper_Data extends Mage_Core_Helper_Data
         }
 
         return null;
+    }
+
+
+
+    /**
+     * Get tax applicable to shipping
+     *
+     * @param integer|null $storeId
+     * @return array|null
+     */
+    public function getShippingTax($storeId = null)
+    {
+        return Mage::getStoreConfig(self::XML_ADVANCED_SHIPPING_TAX, $storeId);
+    }
+
+    /**
+     * Get base tax
+     *
+     * @param integer|null $storeId
+     * @return array|null
+     */
+    public function getBaseTax($storeId = null)
+    {
+        return Mage::getStoreConfig(self::XML_ADVANCED_TAX_BASE, $storeId);
+    }
+
+    /**
+     * Get lower 1 tax
+     *
+     * @param integer|null $storeId
+     * @return array|null
+     */
+    public function getLower1Tax($storeId = null)
+    {
+        return Mage::getStoreConfig(self::XML_ADVANCED_TAX_LOWER1, $storeId);
+    }
+
+    /**
+     * Get lower 2 tax
+     *
+     * @param integer|null $storeId
+     * @return array|null
+     */
+    public function getLower2Tax($storeId = null)
+    {
+        return Mage::getStoreConfig(self::XML_ADVANCED_TAX_LOWER2, $storeId);
     }
 
     /**
@@ -176,18 +237,39 @@ class Maghos_Eet_Helper_Data extends Mage_Core_Helper_Data
     }
 
     /**
-     * Get EET mode
+     * Get configured tax classes for EET_Receipt
      *
      * @param integer|null $storeId
      * @return array
      */
     public function getTaxClasses($storeId = null)
     {
-        $base = Mage::getStoreConfig(self::XML_ADVANCED_TAX_BASE, $storeId);
-        $lower1 = Mage::getStoreConfig(self::XML_ADVANCED_TAX_LOWER1, $storeId);
-        $lower2 = Mage::getStoreConfig(self::XML_ADVANCED_TAX_LOWER2, $storeId);
+        $base   = $this->getBaseTax($storeId);
+        $lower1 = $this->getLower1Tax($storeId);
+        $lower2 = $this->getLower2Tax($storeId);
 
-        return array('base' => $base, 'lower' => array($lower1, $lower2));
+        return array(
+          0 => array(
+            'base' => 0.0,
+            'tax' => 0.0,
+            'total' => 0.0
+          ),
+          $lower1 => array(
+            'base' => 0.0,
+            'tax' => 0.0,
+            'total' => 0.0
+          ),
+          $lower2 => array(
+            'base' => 0.0,
+            'tax' => 0.0,
+            'total' => 0.0
+          ),
+          $base => array(
+            'base' => 0.0,
+            'tax' => 0.0,
+            'total' => 0.0
+          )
+        );
     }
 
     /**
@@ -200,14 +282,14 @@ class Maghos_Eet_Helper_Data extends Mage_Core_Helper_Data
     {
 
         if (
-            $order->getState() == Mage_Sales_Model_Order::STATE_CANCELED ||
-            $order->getState() == Mage_Sales_Model_Order::STATE_CLOSED
+          $order->getState() == Mage_Sales_Model_Order::STATE_CANCELED ||
+          $order->getState() == Mage_Sales_Model_Order::STATE_CLOSED
         ) {
             return false;
         }
 
         if ($payment = $order->getPayment()) {
-            $paymentMethod = $payment->getMethodInstance();
+            $paymentMethod  = $payment->getMethodInstance()->getCode();
             $paymentMethods = $this->getPaymentMethods($order->getStoreId());
         } else {
             return false;
@@ -217,7 +299,7 @@ class Maghos_Eet_Helper_Data extends Mage_Core_Helper_Data
             return false;
         }
 
-        $shippingMethod = $order->getShippingMethod();
+        $shippingMethod  = $order->getShippingMethod();
         $shippingMethods = $this->getShippingMethods($order->getStoreId());
         if ($shippingMethods && !in_array($shippingMethod, $shippingMethods)) {
             return false;

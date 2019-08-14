@@ -21,6 +21,63 @@ class Maghos_Eet_Model_Observer
 {
 
     /**
+     * Handler for sales_order_invoice_save_after event
+     *
+     * @param Varien_Event_Observer $observer
+     * @return void
+     * @throws Exception
+     */
+    public function invoiceSave($observer)
+    {
+        $invoice = $observer->getEvent()->getInvoice();
+        $invoiceId = $invoice->getOrigData('entity_id');
+        $helper = Mage::helper('eet');
+        
+        if(is_null($invoiceId)){
+            
+            /** @var Mage_Sales_Model_Order */
+            $order = $invoice->getOrder();
+
+            $create = Mage::getModel('eet/record_create');
+
+            if (!$order || !$helper->isActive($order->getStoreId()) || !$helper->autoSend($order->getStoreId())) {
+                return;
+            }
+            
+            $exists = Mage::getModel('eet/record')->loadByOrderId($order->getId());
+            if ($exists->getId()){
+                return;
+            }
+
+            $success = true;
+            try {
+                $create->fromOrder($order);
+            } catch (Exception $ex) {
+                $success = false;
+                Mage::logException($ex);
+            }
+
+            if (Mage::getSingleton('admin/session')->isLoggedIn()) {
+                if($success) {
+                    Mage::getSingleton('adminhtml/session')->addSuccess(
+                        $helper->__(
+                            'EET record created for order #%s',
+                            $order->getIncrementId()
+                        )
+                    );
+                }else{
+                    Mage::getSingleton('adminhtml/session')->addError(
+                        $helper->__(
+                            'Cannot create EET record for order #%s',
+                            $order->getIncrementId()
+                        )
+                    );
+                }
+            }
+        }
+    }
+    
+    /**
      * Handler for core_block_abstract_prepare_layout_before event
      *
      * @param Varien_Event_Observer $observer

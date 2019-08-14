@@ -29,6 +29,7 @@ class Maghos_Eet_Model_Resource_Record extends Mage_Core_Model_Resource_Db_Abstr
      * Load data by specified order id and refund flag
      *
      * @param integer $orderId
+     * @param bool $isRefund
      * @return false|array
      */
     public function loadByOrderId($orderId, $isRefund)

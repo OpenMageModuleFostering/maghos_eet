@@ -22,7 +22,7 @@
 <config>
     <modules>
         <Maghos_Eet>
-            <version>0.5.0</version>
+            <version>0.6.0</version>
         </Maghos_Eet>
     </modules>
     <global>
@@ -117,6 +117,14 @@
                     </eet_core_block_abstract_to_html_after>
                 </observers>
             </core_block_abstract_to_html_after>
+            <sales_order_invoice_save_after>
+                <observers>
+                    <eet_sales_invoice_save_after>
+                        <class>eet/observer</class>
+                        <method>invoiceSave</method>
+                    </eet_sales_invoice_save_after>
+                </observers>
+            </sales_order_invoice_save_after>
         </events>
     </adminhtml>
     <admin>
@@ -138,6 +146,10 @@
             <advanced>
                 <mode>1</mode>
                 <vat>0</vat>
+                <tax_base>21</tax_base>
+                <tax_lower1>15</tax_lower1>
+                <tax_lower2>10</tax_lower2>
+                <shipping_tax>21</shipping_tax>
             </advanced>
             <order>
                 <payment_check>0</payment_check>
