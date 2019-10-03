@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Maghos_Eet",
+    "name": "OpenMageModuleFostering\/Maghos_Eet",
     "type": "magento-module",
     "license": "Open-Software-License-(OSL)",
     "homepage": "",
     "description": "The extension sends the order amount to the Czech Tax Office.",
     "authors": [
-    {
-        "name": "Maghos team",
-        "email": "support@maghos.com"
-    }
-],
+        {
+            "name": "Maghos team",
+            "email": "support@maghos.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
